@@ -194,11 +194,11 @@ try:
 
         fig_monthly_mouvement, ax_mouvement = plt.subplots(figsize=(12, 7))
         for year in selected_years:
-            ax_mouvement.plot(mouvement_filtered['Mois'], mouvement_filtered[year], marker='o', label=f"Mouvement {year}")
+            ax_mouvement.plot(mouvement_filtered['Mois'], mouvement_filtered[year], marker='o', label=f"Trafic PAX {year}")
 
-        ax_mouvement.set_title("Évolution mensuelle du Mouvement (PAX)", fontsize=16, fontweight='bold')
+        ax_mouvement.set_title("Évolution mensuelle du  trafic PAX", fontsize=16, fontweight='bold')
         ax_mouvement.set_xlabel("Mois", fontsize=14)
-        ax_mouvement.set_ylabel("Mouvement (PAX)", fontsize=14)
+        ax_mouvement.set_ylabel("Trafic PAX", fontsize=14)
         ax_mouvement.legend(fontsize=12)
         ax_mouvement.grid(True, linestyle='--', linewidth=0.7, alpha=0.6)
         st.pyplot(fig_monthly_mouvement)
