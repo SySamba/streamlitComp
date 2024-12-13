@@ -162,10 +162,10 @@ try:
 
 # Afficher les prévisions
     st.markdown("### Prévisions pour 2025 et 2026")
-    st.write(f"- Fret prévu pour 2025 : {fret_pred[0]:,.0f} tonnes")
-    st.write(f"- Fret prévu pour 2026 : {fret_pred[1]:,.0f} tonnes")
-    st.write(f"- PAX prévu pour 2025 : {pax_pred[0]:,.0f} passagers")
-    st.write(f"- PAX prévu pour 2026 : {pax_pred[1]:,.0f} passagers")
+    st.write(f"- Fret prévu pour 2025 : {int(fret_pred[0])} tonnes")
+    st.write(f"- Fret prévu pour 2026 : {int(fret_pred[1])} tonnes")
+    st.write(f"- PAX prévu pour 2025 : {int(pax_pred[0])} passagers")
+    st.write(f"- PAX prévu pour 2026 : {int(pax_pred[1])} passagers")
     
 
     
