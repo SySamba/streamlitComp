@@ -185,7 +185,7 @@ try:
         for year in selected_years:
             ax_fret.plot(fret_filtered['Mois'], fret_filtered[year], marker='o', label=f"Fret {year}")
 
-        ax_fret.set_title("Évolution mensuelle du Fret", fontsize=16, fontweight='bold')
+        ax_fret.set_title("Évolution mensuelle du trafic Fret", fontsize=16, fontweight='bold')
         ax_fret.set_xlabel("Mois", fontsize=14)
         ax_fret.set_ylabel("Fret (en tonnes)", fontsize=14)
         ax_fret.legend(fontsize=12)
