@@ -1,7 +1,10 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
+import numpy as np
 from matplotlib.ticker import MaxNLocator
+
 
 
 
@@ -11,8 +14,9 @@ st.markdown(
     f"""
     <style>
         .title {{
-            font-size: 24px;
+            font-size: 50px;
             font-weight: bold;
+            background-color:yellow
             margin-left: 80px; /* Espacement entre l'image et le texte */
             
         }}
@@ -111,6 +115,57 @@ try:
     ax_mouvement.legend(fontsize=12)
     
     st.pyplot(fig_mouvement)
+
+
+
+
+    # Préparation des données pour la régression
+    X_fret = fret_data['ANNEE'].values.reshape(-1, 1)  # Années (indépendantes)
+    y_fret = fret_data['Fret'].values                 # Fret (dépendante)
+
+    X_pax = mouvement_data['ANNEE'].values.reshape(-1, 1)  # Années (indépendantes)
+    y_pax = mouvement_data['PAX'].values                  # Pax (dépendante)
+
+# Modèle de régression linéaire pour Fret
+    model_fret = LinearRegression()
+    model_fret.fit(X_fret, y_fret)
+
+# Modèle de régression linéaire pour Pax
+    model_pax = LinearRegression()
+    model_pax.fit(X_pax, y_pax)
+
+# Prévision pour les années 2025 et 2026
+    years_future = np.array([2025, 2026]).reshape(-1, 1)
+    fret_pred = model_fret.predict(years_future)
+    pax_pred = model_pax.predict(years_future)
+
+      # Ajouter les prévisions aux graphiques
+    fig_fret, ax_fret = plt.subplots(figsize=(12, 7))
+    ax_fret.plot(filtered_fret_data['ANNEE'], filtered_fret_data['Fret'], linestyle='-', linewidth=3, color='#1f77b4', label="Fret (en tonnes)")
+    ax_fret.scatter(years_future, fret_pred, color='red', label="Prévisions (2025-2026)")
+    ax_fret.set_title("Évolution et Prévisions du Fret en Tonnes", fontsize=16, fontweight='bold')
+    ax_fret.set_xlabel("Année", fontsize=14)
+    ax_fret.set_ylabel("Fret (en Tonnes)", fontsize=14)
+    ax_fret.grid(True, linestyle='--', linewidth=0.7, alpha=0.6)
+    ax_fret.legend(fontsize=12)
+    st.pyplot(fig_fret)
+
+    fig_mouvement, ax_mouvement = plt.subplots(figsize=(12, 7))
+    ax_mouvement.plot(filtered_mouvement_data['ANNEE'], filtered_mouvement_data['PAX'], linestyle='-', linewidth=3, color='#ff7f0e', label="Mouvement (PAX)")
+    ax_mouvement.scatter(years_future, pax_pred, color='red', label="Prévisions (2025-2026)")
+    ax_mouvement.set_title("Évolution et Prévisions des Mouvement en PAX", fontsize=16, fontweight='bold')
+    ax_mouvement.set_xlabel("Année", fontsize=14)
+    ax_mouvement.set_ylabel("Mouvement (PAX)", fontsize=14)
+    ax_mouvement.grid(True, linestyle='--', linewidth=0.7, alpha=0.6)
+    ax_mouvement.legend(fontsize=12)
+    st.pyplot(fig_mouvement)
+
+# Afficher les prévisions
+    st.markdown("### Prévisions pour 2025 et 2026")
+    st.write(f"- Fret prévu pour 2025 : {fret_pred[0]:,.0f} tonnes")
+    st.write(f"- Fret prévu pour 2026 : {fret_pred[1]:,.0f} tonnes")
+    st.write(f"- PAX prévu pour 2025 : {pax_pred[0]:,.0f} passagers")
+    st.write(f"- PAX prévu pour 2026 : {pax_pred[1]:,.0f} passagers")
     
 
     
@@ -202,7 +257,12 @@ try:
         ax_mouvement.legend(fontsize=12)
         ax_mouvement.grid(True, linestyle='--', linewidth=0.7, alpha=0.6)
         st.pyplot(fig_monthly_mouvement)
+        
 
+
+
+
+        
         # Footer
         st.markdown('<div class="footer">© 2024 Agence Nationale de l\'Aviation Civile et de la Météorologie.</div>', unsafe_allow_html=True)
 
