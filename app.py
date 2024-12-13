@@ -119,7 +119,7 @@ try:
 
 
 
-    # Préparation des données pour la régression
+   # Préparation des données pour la régression
     X_fret = fret_data['ANNEE'].values.reshape(-1, 1)  # Années (indépendantes)
     y_fret = fret_data['Fret'].values                 # Fret (dépendante)
 
@@ -134,39 +134,36 @@ try:
     model_pax = LinearRegression()
     model_pax.fit(X_pax, y_pax)
 
-# Prévision pour les années 2025 et 2026
-    years_future = np.array([2025, 2026]).reshape(-1, 1)
+# Prévision pour l'année 2044
+    years_future = np.array([2044]).reshape(-1, 1)  # Changer ici pour 2044 seulement
     fret_pred = model_fret.predict(years_future)
     pax_pred = model_pax.predict(years_future)
 
-      # Ajouter les prévisions aux graphiques
+# Ajouter les prévisions aux graphiques
     fig_fret, ax_fret = plt.subplots(figsize=(12, 7))
     ax_fret.plot(filtered_fret_data['ANNEE'], filtered_fret_data['Fret'], linestyle='-', linewidth=3, color='#1f77b4', label="Fret (en tonnes)")
-    ax_fret.scatter(years_future, fret_pred, color='red', label="Prévisions (2025-2026)")
-    #ax_fret.set_title("Évolution et Prévisions du Fret en Tonnes", fontsize=16, fontweight='bold')
-    #ax_fret.set_xlabel("Année", fontsize=14)
-    #ax_fret.set_ylabel("Fret (en Tonnes)", fontsize=14)
-    #ax_fret.grid(True, linestyle='--', linewidth=0.7, alpha=0.6)
-    #ax_fret.legend(fontsize=12)
-    #st.pyplot(fig_fret)
+    ax_fret.scatter(years_future, fret_pred, color='red', label="Prévisions (2044)")
+#ax_fret.set_title("Évolution et Prévisions du Fret en Tonnes", fontsize=16, fontweight='bold')
+#ax_fret.set_xlabel("Année", fontsize=14)
+#ax_fret.set_ylabel("Fret (en Tonnes)", fontsize=14)
+#ax_fret.grid(True, linestyle='--', linewidth=0.7, alpha=0.6)
+#ax_fret.legend(fontsize=12)
+#st.pyplot(fig_fret)
 
-    #fig_mouvement, ax_mouvement = plt.subplots(figsize=(12, 7))
-    #ax_mouvement.plot(filtered_mouvement_data['ANNEE'], filtered_mouvement_data['PAX'], linestyle='-', linewidth=3, color='#ff7f0e', label="Mouvement (PAX)")
-    #ax_mouvement.scatter(years_future, pax_pred, color='red', label="Prévisions (2025-2026)")
-    #ax_mouvement.set_title("Évolution et Prévisions des Mouvement en PAX", fontsize=16, fontweight='bold')
-    #ax_mouvement.set_xlabel("Année", fontsize=14)
-    #ax_mouvement.set_ylabel("Mouvement (PAX)", fontsize=14)
-    #ax_mouvement.grid(True, linestyle='--', linewidth=0.7, alpha=0.6)
-    #ax_mouvement.legend(fontsize=12)
-    #st.pyplot(fig_mouvement)
+#fig_mouvement, ax_mouvement = plt.subplots(figsize=(12, 7))
+#ax_mouvement.plot(filtered_mouvement_data['ANNEE'], filtered_mouvement_data['PAX'], linestyle='-', linewidth=3, color='#ff7f0e', label="Mouvement (PAX)")
+#ax_mouvement.scatter(years_future, pax_pred, color='red', label="Prévisions (2044)")
+#ax_mouvement.set_title("Évolution et Prévisions des Mouvement en PAX", fontsize=16, fontweight='bold')
+#ax_mouvement.set_xlabel("Année", fontsize=14)
+#ax_mouvement.set_ylabel("Mouvement (PAX)", fontsize=14)
+#ax_mouvement.grid(True, linestyle='--', linewidth=0.7, alpha=0.6)
+#ax_mouvement.legend(fontsize=12)
+#st.pyplot(fig_mouvement)
 
-# Afficher les prévisions
-    st.markdown("### Prévisions pour 2025 et 2026")
-    st.write(f"- Fret prévu pour 2025 : {int(fret_pred[0])} tonnes")
-    st.write(f"- Fret prévu pour 2026 : {int(fret_pred[1])} tonnes")
-    st.write(f"- PAX prévu pour 2025 : {int(pax_pred[0])} passagers")
-    st.write(f"- PAX prévu pour 2026 : {int(pax_pred[1])} passagers")
-    
+# Afficher les prévisions pour 2044
+    st.markdown("### Prévisions pour 2044")
+    st.write(f"- Fret prévu pour 2044 : {int(fret_pred[0])} tonnes")
+    st.write(f"- PAX prévu pour 2044 : {int(pax_pred[0])} passagers")
 
     
 
@@ -240,7 +237,7 @@ try:
         for year in selected_years:
             ax_fret.plot(fret_filtered['Mois'], fret_filtered[year], marker='o', label=f"Fret {year}")
 
-        ax_fret.set_title("Évolution mensuelle du trafic Fret", fontsize=16, fontweight='bold')
+        ax_fret.set_title("Comparaison du trafic Fret 2019-2020-2021-2022-2023-2024", fontsize=16, fontweight='bold')
         ax_fret.set_xlabel("Mois", fontsize=14)
         ax_fret.set_ylabel("Fret (en tonnes)", fontsize=14)
         ax_fret.legend(fontsize=12)
@@ -251,7 +248,7 @@ try:
         for year in selected_years:
             ax_mouvement.plot(mouvement_filtered['Mois'], mouvement_filtered[year], marker='o', label=f"Trafic PAX {year}")
 
-        ax_mouvement.set_title("Évolution mensuelle du  trafic PAX", fontsize=16, fontweight='bold')
+        ax_mouvement.set_title("Comparaison du  trafic PAX 2019-2020-2021-2022-2023-2024", fontsize=16, fontweight='bold')
         ax_mouvement.set_xlabel("Mois", fontsize=14)
         ax_mouvement.set_ylabel("Trafic PAX", fontsize=14)
         ax_mouvement.legend(fontsize=12)
